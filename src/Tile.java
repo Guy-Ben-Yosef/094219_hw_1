@@ -3,7 +3,7 @@ public class Tile {
     protected int value;
 
     /**
-     * Constractor for Tile
+     * Constructor for Tile
      * @param value of specific tile
      */
     public Tile(int value){

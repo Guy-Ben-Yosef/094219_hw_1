@@ -7,7 +7,7 @@ public class Board {
     int col;
 
     /**
-     * Constractor for board object
+     * Constructor for board object
      * @param boardString is a string-need to be converted
      */
     public Board(String boardString){
@@ -20,13 +20,13 @@ public class Board {
      * the sign of '_' replaced by 0
      */
     private void Build() {
-        String[] splittedString = boardString.split("|") ;
+        String[] splittedString = boardString.split("\\|") ;
 
         this.row = splittedString.length;
-        this.col = (splittedString[0]).split("").length;
+        this.col = (splittedString[0]).split(" ").length;
         this.board = new Tile[row][col];
 
-        this.Insert(row, col);
+        this.Insert();
     }
 
     /**
