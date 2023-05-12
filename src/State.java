@@ -1,8 +1,35 @@
 public class State {
-    private Board board;
-    private static final Board goalBoard = new Board("1|2|3|4|5|6|7|8|0"); // set the goal board
+    Board[][] board;
+    static Board[][] goalBoard;
+
+    public State(Board[][] board){
+        this.board = board;
+        this.goalBoard = Board.getGoalBoard();
+
+    }
+
+    // TODO: `getGoalBoard` function should be implemented in `Board` class
+    /*
+    public Board getGoalBoard(){
+        int count = 0;
+        for (int i = 0; i < row; i++){
+            for (int j = 0; j < col; j++){
+                count ++;
+                if (count < row * col){
+                    goalBoard[i][j] = new Tile(count);
+                    break;
+                } else {
+                    goalBoard[i][j] = new Tile(0);
+                }
+            }
+        }
+        return goalBoard;
+    }
+    */
+
+
     /**
-     * Does not get any parameters as input, it is check if the current board's state is the goal state and returns boolean value
+     * Does not get any parameters as input, it is checking if the current board's state is the goal state and returns boolean value
      * @return boolean
      */
     public boolean isGoal(){
@@ -13,16 +40,47 @@ public class State {
     }
 
     /**
-     * Gets the board as input and sets the board
-     * @param board
+     * Does not get any parameters as input, it is returning all the possible actions from the present state of the
+     * board as an array of strings
+     * @return String[]
      */
-    public String[] actions{
-        String[] actions = new String[4];
-        actions[0] = "up";
-        actions[1] = "down";
-        actions[2] = "left";
-        actions[3] = "right";
-        return actions;
+    public String[] actions() {
+        // Find the indexes of the empty tile
+        int[] emptyTileIndexes = findEmptyTileIndexes();
+        int emptyTileI = emptyTileIndexes[0];
+        int emptyTileJ = emptyTileIndexes[1];
+
+        boolean up = false;
+        boolean down = false;
+        boolean right = false;
+        boolean left = false;
+
+        // Find the possible actions
+        if (emptyTileI > 0) {
+            down = true;
+        } else if (emptyTileI < Board.row - 1) {
+            up = true;
+        } else if (emptyTileJ > 0) {
+            right = true;
+        } else if (emptyTileJ < Board.col - 1) {
+            down = true;
+        }
+
+        // TODO: `actions` function should return an array of strings
+    }
+
+    /**
+     * Finds the indexes of the empty tile
+     * @return int[]
+     */
+    private int[] findEmptyTileIndexes(){
+        for (int i = 0; i < Board.row; i++){
+            for (int j = 0; j < Board.col; j++){
+                if (this.board[i][j].get() == 0){
+                    return new int[]{i, j};
+                }
+            }
+        }
     }
 
     /**
