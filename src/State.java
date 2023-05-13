@@ -14,7 +14,6 @@ public class State {
 
     public State(Tile[][] board){
         this.state = board;
-
     }
 
     /**
