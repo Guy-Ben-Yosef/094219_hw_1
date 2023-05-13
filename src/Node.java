@@ -24,8 +24,8 @@ public class Node {
         Node[] children = new Node[possibleActions.length];
 
         for (int i = 0; i < children.length; i++) {
-            State childState = new State();
-            Action actionToChild = new Action();
+            Action actionToChild = new Action(int[] targetTileIndexes, PossibleDirection direction);
+            State childState = actionToChild.commitAction(this.state);
             children[i] = new Node(childState, this, actionToChild);
         }
 

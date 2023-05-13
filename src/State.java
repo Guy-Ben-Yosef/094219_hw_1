@@ -1,17 +1,20 @@
 /**
  * This class represents the state of the board at any given time. It has the following methods:
- * 1. isGoal() - Checks if the current state of the board is the goal state
- * 2. actions() - Returns all the possible actions from the current state of the board
- * 3. result() - Returns the state of the board after performing a given action
- * 4. findEmptyTileIndexes() - Returns the indexes of the empty tile in the current state of the board
- * 5. getGoalBoard() - Returns the goal state of the game
- * 6. equals() - Checks if the current state of the board is equal to the given state of the board
- * 7. hashCode() - Returns the hashcode of the current state of the board
+ * 1. getGoalBoard()  - This method generates a Board with Tiles numbered from 1 to (row * col - 1) and a blank Tile
+ *                      represented by 0, that is a Board matches the final board of the game (goal board).
+ * 2. isGoal()        - This method checks if the current board's state is the goal state and returns a boolean value.
+ * 3. actions()       - This method returns an array of all possible actions that can be taken from the current state.
+ * 4. findEmptyTile() - This method returns the indexes of the empty Tile in the current state.
+ * 5. result()        - This method returns the state after an action is committed.
  */
 public class State {
     Tile[][] state;
     static Board GOAL_BOARD = getGoalBoard();;
 
+    /**
+     * Constructor for State
+     * @param board the current board
+     */
     public State(Tile[][] board){
         this.state = board;
     }
@@ -114,50 +117,27 @@ public class State {
     }
 
     /**
-     * Gets the action as input and returns the result state
-     * @param action
-     * @return State
+     * Represents the updated state of a game after performing an action on a tile.
+     *
+     * @param action The action to be performed on the tile.
+     * @return The updated state of the game as a State object.
      */
-    public State result(Action action){
-        // TODO: Implement this method correctly
-        State resultState = new State();
-        resultState.board = this.board;
-        int row = 0;
-        int col = 0;
-        for (int i = 0; i < this.board.row; i++){
-            for (int j = 0; j < this.board.col; j++){
-                if (this.board.board[i][j].get() == 0){
-                    row = i;
-                    col = j;
-                }
-            }
-        }
-        if (action == "up"){
-            if (row == 0){
-                return null;
-            }
-            resultState.board.board[row][col].set(this.board.board[row-1][col].get());
-            resultState.board.board[row-1][col].set(0);
-        }else if (action == "down"){
-            if (row == this.board.row-1){
-                return null;
-            }
-            resultState.board.board[row][col].set(this.board.board[row+1][col].get());
-            resultState.board.board[row+1][col].set(0);
-        }else if (action == "left"){
-            if (col == 0){
-                return null;
-            }
-            resultState.board.board[row][col].set(this.board.board[row][col-1].get());
-            resultState.board.board[row][col-1].set(0);
-        }else if (action == "right"){
-            if (col == this.board.col-1){
-                return null;
-            }
-            resultState.board.board[row][col].set(this.board.board[row][col+1].get());
-            resultState.board.board[row][col+1].set(0);
-        }
-        return resultState;
+    public State result(Action action) {
+        // Get the current position of the tile that will be moved
+        int i = action.i;
+        int j = action.j;
+
+        // Get the tile that will be moved
+        Tile movingTile = this.state[i][j];
+
+        // Calculate the new position of the tile based on the action
+        int[] newIndexes = action.actionAsNewIndexes();
+
+        // Move the tile to the new position and replace the old position with an empty tile
+        this.state[newIndexes[0]][newIndexes[1]] = movingTile;
+        this.state[i][j] = new Tile(0);
+
+        return this;
     }
 
     @Override
