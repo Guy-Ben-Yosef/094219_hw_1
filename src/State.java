@@ -1,9 +1,9 @@
 public class State {
-    Board[][] board;
+    Tile[][] state;
     static Board GOAL_BOARD = getGoalBoard();;
 
-    public State(Board[][] board){
-        this.board = board;
+    public State(Tile[][] board){
+        this.state = board;
 
     }
 
@@ -38,7 +38,7 @@ public class State {
      * @return boolean
      */
     public boolean isGoal(){
-        if (this.equals(goalBoard)){
+        if (this.equals(GOAL_BOARD)){
             return true;
         }
         return false;
@@ -75,17 +75,19 @@ public class State {
     }
 
     /**
-     * Finds the indexes of the empty tile
+     * Finds the indexes of the empty tile of a certain state. If this state does not have an empty tile, it returns
+     * null.
      * @return int[]
      */
     private int[] findEmptyTileIndexes(){
         for (int i = 0; i < Board.row; i++){
             for (int j = 0; j < Board.col; j++){
-                if (this.board[i][j].get() == 0){
+                if (this.state[i][j].get() == 0){
                     return new int[]{i, j};
                 }
             }
         }
+        return null;
     }
 
     /**
