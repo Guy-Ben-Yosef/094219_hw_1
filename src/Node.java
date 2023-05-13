@@ -11,9 +11,9 @@ public class Node {
 
     /**
      * Constructor
-     * @param state
-     * @param father
-     * @param actionToThisState
+     * @param state the current state
+     * @param father the parent node
+     * @param actionToThisState the action that was performed to reach this state
      */
     public Node(State state, Node father, Action actionToThisState) {
         this.state = state;
