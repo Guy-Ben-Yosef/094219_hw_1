@@ -1,3 +1,13 @@
+/**
+ * This class represents the state of the board at any given time. It has the following methods:
+ * 1. isGoal() - Checks if the current state of the board is the goal state
+ * 2. actions() - Returns all the possible actions from the current state of the board
+ * 3. result() - Returns the state of the board after performing a given action
+ * 4. findEmptyTileIndexes() - Returns the indexes of the empty tile in the current state of the board
+ * 5. getGoalBoard() - Returns the goal state of the game
+ * 6. equals() - Checks if the current state of the board is equal to the given state of the board
+ * 7. hashCode() - Returns the hashcode of the current state of the board
+ */
 public class State {
     Tile[][] state;
     static Board GOAL_BOARD = getGoalBoard();;
