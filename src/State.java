@@ -7,7 +7,6 @@ public class State {
 
     }
 
-
     /**
      * This method generates a Board with Tiles numbered from 1 to (row * col - 1) and a blank Tile represented by 0,
      * that is a Board matches the final board of the game (goal board).
@@ -32,9 +31,9 @@ public class State {
         return goalBoard;
     }
 
-
     /**
-     * Does not get any parameters as input, it is checking if the current board's state is the goal state and returns boolean value
+     * Does not get any parameters as input, it is checking if the current board's state is the goal state and returns
+     * boolean value
      * @return boolean
      */
     public boolean isGoal(){
@@ -45,33 +44,48 @@ public class State {
     }
 
     /**
-     * Does not get any parameters as input, it is returning all the possible actions from the present state of the
-     * board as an array of strings
-     * @return String[]
+     * This method does not get any parameters as input, it is returning all the possible actions from the present state
+     * of the board as an array of `PossibleDirection` enum.
+     * @return PossibleDirection[]
      */
-    public String[] actions() {
+    public PossibleDirection[] actions() {
         // Find the indexes of the empty tile
         int[] emptyTileIndexes = findEmptyTileIndexes();
         int emptyTileI = emptyTileIndexes[0];
         int emptyTileJ = emptyTileIndexes[1];
 
-        boolean up = false;
-        boolean down = false;
-        boolean right = false;
-        boolean left = false;
+        // Initialize int array with the size of 1x4 of zeros
+        int[] possibleActions = new int[4];  // {up, down, right, left}
 
         // Find the possible actions
         if (emptyTileI > 0) {
-            down = true;
+            possibleActions[0] = 1;
         } else if (emptyTileI < Board.row - 1) {
-            up = true;
+            possibleActions[1] = 1;
         } else if (emptyTileJ > 0) {
-            right = true;
+            possibleActions[2] = 1;
         } else if (emptyTileJ < Board.col - 1) {
-            down = true;
+            possibleActions[3] = 1;
         }
 
-        // TODO: `actions` function should return an array of strings
+        // Calculate the sum of `possibleActions` array
+        int sum = 0;
+        for (int i = 0; i < possibleActions.length; i++){
+            sum += possibleActions[i];
+        }
+
+        // Initialize an array of `PossibleDirection` enum with the size of `sum`
+        PossibleDirection[] actions = new PossibleDirection[sum];
+
+        // Fill the `actions` array with the possible actions
+        int counter = 0;
+        for (int i = 0; i < possibleActions.length; i++) {
+            if (possibleActions[i] == 1) {
+                actions[counter] = PossibleDirection.values()[i];
+                counter++;
+            }
+        }
+        return actions;
     }
 
     /**
@@ -96,6 +110,7 @@ public class State {
      * @return State
      */
     public State result(Action action){
+        // TODO: Implement this method correctly
         State resultState = new State();
         resultState.board = this.board;
         int row = 0;
