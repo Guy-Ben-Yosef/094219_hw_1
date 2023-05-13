@@ -1,14 +1,15 @@
 /**
  * This class represents the state of the board at any given time. It has the following methods:
- * 1. getGoalBoard()  - This method generates a Board with Tiles numbered from 1 to (row * col - 1) and a blank Tile
- *                      represented by 0, that is a Board matches the final board of the game (goal board).
- * 2. isGoal()        - This method checks if the current board's state is the goal state and returns a boolean value.
- * 3. actions()       - This method returns an array of all possible actions that can be taken from the current state.
- * 4. findEmptyTile() - This method returns the indexes of the empty Tile in the current state.
- * 5. result()        - This method returns the state after an action is committed.
+ * 1. getGoalBoard() - This method generates a Board with Tiles numbered from 1 to (row * col - 1) and a blank Tile
+ *                     represented by 0, that is a Board matches the final board of the game (goal board).
+ * 2. isGoal()       - This method checks if the current board's state is the goal state and returns a boolean value.
+ * 3. actions()      - This method returns an array of all possible actions that can be taken from the current state.
+ * 4. findEmptyTileIndexes() - This method returns the indexes of the empty Tile in the current state.
+ * 5. result()       - This method returns the state after an action is committed.
  */
 public class State {
     Tile[][] state;
+    int[] emptyTileIndexes;
     static Board GOAL_BOARD = getGoalBoard();;
 
     /**
@@ -17,6 +18,7 @@ public class State {
      */
     public State(Tile[][] board){
         this.state = board;
+        this.emptyTileIndexes = findEmptyTileIndexes();
     }
 
     /**
@@ -137,6 +139,8 @@ public class State {
         this.state[newIndexes[0]][newIndexes[1]] = movingTile;
         this.state[i][j] = new Tile(0);
 
+        // Update the empty tile indexes
+        this.emptyTileIndexes = newIndexes;
         return this;
     }
 
