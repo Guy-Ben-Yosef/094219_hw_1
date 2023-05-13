@@ -4,28 +4,10 @@ public class State {
 
     public State(Board[][] board){
         this.board = board;
-        this.goalBoard = Board.getGoalBoard();
+//        this.goalBoard = Board.getGoalBoard();
 
     }
 
-    // TODO: `getGoalBoard` function should be implemented in `Board` class
-    /*
-    public Board getGoalBoard(){
-        int count = 0;
-        for (int i = 0; i < row; i++){
-            for (int j = 0; j < col; j++){
-                count ++;
-                if (count < row * col){
-                    goalBoard[i][j] = new Tile(count);
-                    break;
-                } else {
-                    goalBoard[i][j] = new Tile(0);
-                }
-            }
-        }
-        return goalBoard;
-    }
-    */
 
 
     /**
