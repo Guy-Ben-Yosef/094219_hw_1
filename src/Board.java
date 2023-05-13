@@ -2,17 +2,24 @@ import java.util.Arrays;
 
 public class Board {
     String boardString;
-    Tile [][] board;
-    int row;
-    int col;
+    Tile[][] board;
+    static int row;
+    static int col;
 
     /**
-     * Constructor for board object
+     * Constructor for board object to get a certain board by a string
      * @param boardString is a string-need to be converted
      */
     public Board(String boardString){
         this.boardString = boardString;
         this.Build();
+    }
+
+    /**
+     * Constructor for board object in case that the user want to get an EMPTY board
+     */
+    public Board() {
+        this.board = new Tile[row][col];
     }
 
     /**
