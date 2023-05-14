@@ -8,7 +8,7 @@ public class Board {
 
     /**
      * Constructor for board object to get a certain board by a string
-     * @param boardString is a string-need to be converted
+     * @param boardString is a string - need to be converted
      */
     public Board(String boardString){
         this.boardString = boardString;
@@ -27,10 +27,10 @@ public class Board {
      * the sign of '_' replaced by 0
      */
     private void Build() {
-        String[] splittedString = boardString.split("\\|") ;
+        String[] splittedString = "\\|".split(boardString) ;
 
-        this.row = splittedString.length;
-        this.col = (splittedString[0]).split(" ").length;
+        row = splittedString.length;
+        col = " ".split(splittedString[0]).length;
         this.board = new Tile[row][col];
 
         this.Insert();
@@ -42,14 +42,13 @@ public class Board {
     private void Insert() {
         int count = 0;
 
-        for (int i = 0; i < this.row; i++){
-            for (int j = 0; j  < this.col; j++){
+        for (int i = 0; i < row; i++){
+            for (int j = 0; j  < col; j++){
                 if (this.boardString.charAt(count) == '|'){
                     count ++;
                     continue;
-                }
 
-                if(this.boardString.charAt(count) == '_'){
+                } else if(this.boardString.charAt(count) == '_'){
                     this.board[i][j] = new Tile(0);
 
                 }else{
@@ -65,8 +64,8 @@ public class Board {
      * Printing the current board
      */
     public void print(){
-        for (int i = 0; i < this.row; i++){
-            for (int j = 0; j  < this.col; j++) {
+        for (int i = 0; i < row; i++){
+            for (int j = 0; j  < col; j++) {
                 if (this.board[i][j].get() == 0) {
                     System.out.print("_");
                 } else {
