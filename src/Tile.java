@@ -1,12 +1,11 @@
 public class Tile {
-
     protected int value;
 
     /**
      * Constructor for Tile
      * @param value of specific tile
      */
-    public Tile(int value){
+    public Tile(int value){  // TODO: how much bytes should be assigned to this type?
         this.value = value;
     }
 
