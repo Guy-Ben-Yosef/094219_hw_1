@@ -10,7 +10,7 @@
 public class State {
     Tile[][] state;
     int[] emptyTileIndexes;
-    static Board GOAL_BOARD = getGoalBoard();;
+    Board GOAL_BOARD = getGoalBoard();;
 
     /**
      * Constructor for State

@@ -3,8 +3,8 @@ import java.util.Arrays;
 public class Board {
     String boardString;
     Tile[][] board;
-    static int row;
-    static int col;
+    int row;
+    int col;
 
     /**
      * Constructor for board object to get a certain board by a string
