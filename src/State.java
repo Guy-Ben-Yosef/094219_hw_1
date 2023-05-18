@@ -11,10 +11,6 @@ public class State {
     Board state;
     int[] emptyTileIndexes;
 
-    public State(Board state, Action action){
-        this.state = state.state.result(action);
-    }
-
     /**
      * Constructor for State
      * @param state the current board
@@ -109,26 +105,23 @@ public class State {
      * @return The updated state of the game as a State object.
      */
     public State result(Action action) {
+        State newState = new State(this.state, this.emptyTileIndexes);
 
+        // Get the current position of the tile that will be moved
+        int i = action.i;
+        int j = action.j;
 
+        // Get the tile that will be moved
+        Tile targetTile = action.tile;
 
-//        // Get the current position of the tile that will be moved
-//        int i = action.i;
-//        int j = action.j;
-//
-//        // Get the tile that will be moved
-//        Tile movingTile = this.state[i][j];
-//
-//        // Calculate the new position of the tile based on the action
-//        int[] newIndexes = action.actionAsNewIndexes();
-//
-//        // Move the tile to the new position and replace the old position with an empty tile
-//        this.state[newIndexes[0]][newIndexes[1]] = movingTile;
-//        this.state[i][j] = new Tile(0);
-//
-//        // Update the empty tile indexes
-//        this.emptyTileIndexes = newIndexes;
-        return this;
+        // Move the tile to the new position and replace the old position with an empty tile
+        newState.state.board[emptyTileIndexes[0]][emptyTileIndexes[1]].set(targetTile.get());
+        newState.state.board[i][j].set(0);
+
+        // Update the empty tile indexes
+        newState.emptyTileIndexes[0] = i;
+        newState.emptyTileIndexes[1] = j;
+        return newState;
     }
 
     @Override

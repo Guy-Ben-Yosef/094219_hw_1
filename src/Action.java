@@ -4,11 +4,11 @@ public class Action {
     int j;
     Tile tile;
     PossibleDirection direction;
-    public Action(Tile tile, PossibleDirection direction, int i, int j) {
-        this.tile = tile;
-        this.direction = direction;
+    public Action(int i, int j, Tile tile, PossibleDirection direction) {
         this.i = i;
         this.j = j;
+        this.tile = tile;
+        this.direction = direction;
     }
 
     /**
