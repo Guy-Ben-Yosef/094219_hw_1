@@ -54,6 +54,9 @@ public class Search {
                     if (!enqueued.contains(child.getState())) {  // Check for duplication
                         enqueued.add(child.getState());  // Mark the child as visited
                         frontier.add(child);
+
+                        // TODO: Remove next line
+//                        System.out.println(child.actionToThisState.toString() + "\t Heuristic = " + Integer.toString(child.heuristicValue()));
                     }
                 }
             }

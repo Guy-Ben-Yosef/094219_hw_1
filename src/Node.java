@@ -8,7 +8,7 @@ public class Node {
     State nodeState;
     Node parent;
     Action actionToThisState;
-    int heuristicValue;
+//    int heuristicValue;
 
     /**
      * Constructor
@@ -88,13 +88,18 @@ public class Node {
      * @return the heuristic grade
      */
     public int heuristicValue() {
-        heuristicValue = 0;
+        int heuristicValue = 0;
+        // Loop through all tiles in the board and calculate the distance of each tile from its original position
+        for (int i = 0; i < this.nodeState.board.row; i++){  // looping all tile's board.
+            for (int j = 0; j  < this.nodeState.board.col; j++) {
+                Tile thisTile = this.nodeState.board.tiles[i][j];
+                Tile goalTile = Board.goalBoard.tiles[i][j];
+                if (!thisTile.equals(goalTile)) {
+                    heuristicValue ++;
+                }
 
-//        for (int i = 0; i < this.nodeState.stateBoard.row; i++){  // looping all tile's board.
-//            for (int j = 0; j  < this.nodeState.stateBoard.col; j++) {
-//                heuristicValue += distance(i, j, this.nodeState.stateBoard.board[i][j].get());
-//            }
-//        }
+            }
+        }
         return heuristicValue;
     }
 
@@ -108,7 +113,7 @@ public class Node {
     public int distance(int i, int j, int value){
         for (int l = 0; l < this.nodeState.board.row; l++){  // looping all tile's board.
             for (int m = 0; m  < this.nodeState.board.col; m++) {
-                if(value == this.nodeState.board.goalTiles[l][m].get()){
+                if(value == Board.goalBoard.tiles[l][m].get()){
                     return 0;  // TO BE DELETED
 //                    return (abs(i - l) + abs(j - m));
                 }
