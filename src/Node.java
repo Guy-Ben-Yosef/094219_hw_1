@@ -2,7 +2,7 @@
  * This class represents a node in the search tree.
  * It contains the state of the puzzle, the parent node, and the action that was performed to reach this state.
  * 1. expand() - This method expands the current node to generate all possible child nodes.
- * 2. heuristicValue(...) - TODO.
+ * 2. heuristicValue() - This method calculates the heuristic value of the current node.
  */
 public class Node {
     State nodeState;

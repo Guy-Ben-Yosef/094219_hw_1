@@ -52,14 +52,17 @@ public class State {
         int[] possibleActions = new int[4];  // {up, down, right, left}
 
         // Find the possible actions
+        if (emptyTileI < this.board.row - 1) {
+            possibleActions[0] = 1;  // UP is possible
+        }
         if (emptyTileI > 0) {
-            possibleActions[0] = 1;
-        } else if (emptyTileI < this.board.row - 1) {
-            possibleActions[1] = 1;
-        } else if (emptyTileJ > 0) {
-            possibleActions[2] = 1;
-        } else if (emptyTileJ < this.board.col - 1) {
-            possibleActions[3] = 1;
+            possibleActions[1] = 1;  // DOWN is possible
+        }
+        if (emptyTileJ > 0) {
+            possibleActions[2] = 1;  // RIGHT is possible
+        }
+        if (emptyTileJ < this.board.col - 1) {
+            possibleActions[3] = 1;  // LEFT is possible
         }
 
         // Calculate the sum of `possibleActions` array
