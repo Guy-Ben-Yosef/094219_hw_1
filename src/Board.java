@@ -1,7 +1,6 @@
 import java.util.Arrays;
 
 public class Board {
-    String boardString;
     Tile[][] board;
     int row;
     int col;
@@ -11,8 +10,13 @@ public class Board {
      * @param boardString is a string - need to be converted
      */
     public Board(String boardString){
-        this.boardString = boardString;
-        this.Build();
+        String[] splittedString = "\\|".split(boardString) ;
+
+        row = splittedString.length;
+        col = " ".split(splittedString[0]).length;
+        this.board = new Tile[row][col];
+
+        this.Insert(boardString);
     }
 
     /**
@@ -23,36 +27,22 @@ public class Board {
     }
 
     /**
-     * This function build the tiles board
-     * the sign of '_' replaced by 0
-     */
-    private void Build() {
-        String[] splittedString = "\\|".split(boardString) ;
-
-        row = splittedString.length;
-        col = " ".split(splittedString[0]).length;
-        this.board = new Tile[row][col];
-
-        this.Insert();
-    }
-
-    /**
      * Inserting the board all the tiles
      */
-    private void Insert() {
+    private void Insert(String boardString) {
         int count = 0;
 
         for (int i = 0; i < row; i++){
             for (int j = 0; j  < col; j++){
-                if (this.boardString.charAt(count) == '|'){
+                if (boardString.charAt(count) == '|'){
                     count ++;
                     continue;
 
-                } else if(this.boardString.charAt(count) == '_'){
+                } else if(boardString.charAt(count) == '_'){
                     this.board[i][j] = new Tile(0);
 
                 }else{
-                    this.board[i][j] = new Tile(this.boardString.charAt(count));
+                    this.board[i][j] = new Tile(boardString.charAt(count));
                 }
 
                 count ++;
