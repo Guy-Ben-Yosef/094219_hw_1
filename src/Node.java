@@ -5,19 +5,19 @@
  * 2. heuristicValue(...) - TODO.
  */
 public class Node {
-    State state;
+    State nodeState;
     Node father;
     Action actionToThisState;
     int heuristicValue;
 
     /**
      * Constructor
-     * @param state the current state
+     * @param nodeState the current state
      * @param father the parent node
      * @param actionToThisState the action that was performed to reach this state
      */
-    public Node(State state, Node father, Action actionToThisState) {
-        this.state = state;
+    public Node(State nodeState, Node father, Action actionToThisState) {
+        this.nodeState = nodeState;
         this.father = father;
         this.actionToThisState = actionToThisState;
     }
@@ -29,19 +29,22 @@ public class Node {
      */
     public Node[] expand() {
         // Get all possible actions for the current state
-        PossibleDirection[] possibleActions = this.state.actions();
+        PossibleDirection[] possibleDirections = this.nodeState.actions();
 
         // Create an array of child nodes with the same length as the possible actions
-        Node[] children = new Node[possibleActions.length];
+        Node[] children = new Node[possibleDirections.length];
 
         // For each possible action, create a new child node with the resulting state and add it to the array
         for (int i = 0; i < children.length; i++) {
+            PossibleDirection direction = possibleDirections[i];
             // Calculate the new position of the tile based on the action
-            int[] targetTileIndexes = Action.convertEmptyToTarget(this.state.emptyTileIndexes, possibleActions[i]);
+            int[] targetTileIndexes = Action.convertEmptyToTarget(this.nodeState.emptyTileIndexes, direction);
+            int targetI = targetTileIndexes[0];
+            int targetJ = targetTileIndexes[1];
             // Create a new Action object with the target tile indexes and direction
-            Action actionToChild = new Action(targetTileIndexes, possibleActions[i]);
+            Action actionToChild = new Action(targetI, targetJ, this.nodeState.stateBoard.board[targetI][targetJ], direction);
             // Calculate the resulting state after performing the action
-            State childState = state.result(actionToChild);
+            State childState = this.nodeState.result(actionToChild);
             // Create a new Node object with the child state, current node, and action to child
             children[i] = new Node(childState, this, actionToChild);
         }
@@ -57,9 +60,9 @@ public class Node {
     public int heuristicValue() {
         heuristicValue = 0;
 
-        for (int i = 0; i < state.row; i++){  // looping all tile's board.
-            for (int j = 0; j  < state.col; j++) {
-                heuristicValue += distance(i, j, state[i][j].get());
+        for (int i = 0; i < this.nodeState.stateBoard.row; i++){  // looping all tile's board.
+            for (int j = 0; j  < this.nodeState.stateBoard.col; j++) {
+                heuristicValue += distance(i, j, this.nodeState.stateBoard.board[i][j].get());
             }
         } 
         return heuristicValue;
@@ -73,10 +76,10 @@ public class Node {
      * @return the distance
      */
     public int distance(int i, int j, int value){
-        for (int l = 0; l < state.GOAL_BOARD.row; l++){  // looping all tile's board.
-            for (int m = 0; m  < state.GOAL_BOARD.col; m++) {
-                if(value == state.goalBoard[l][m]){
-                    return (abs(i -l) + abs(j-m));
+        for (int l = 0; l < this.nodeState.stateBoard.row; l++){  // looping all tile's board.
+            for (int m = 0; m  < this.nodeState.stateBoard.col; m++) {
+                if(value == this.nodeState.stateBoard.goalBoard[l][m].get()){
+                    return (abs(i - l) + abs(j - m));
                 }
              }
          } 
