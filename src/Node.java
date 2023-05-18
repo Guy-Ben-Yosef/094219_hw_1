@@ -108,7 +108,7 @@ public class Node {
     public int distance(int i, int j, int value){
         for (int l = 0; l < this.nodeState.board.row; l++){  // looping all tile's board.
             for (int m = 0; m  < this.nodeState.board.col; m++) {
-                if(value == this.nodeState.board.goalTiles[l][m].get()){
+                if(value == Board.goalBoard.tiles[l][m].get()){
                     return 0;  // TO BE DELETED
 //                    return (abs(i - l) + abs(j - m));
                 }

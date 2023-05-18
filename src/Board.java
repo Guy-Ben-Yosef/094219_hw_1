@@ -2,9 +2,9 @@ import java.util.Arrays;
 
 public class Board {
     Tile[][] tiles;
-    static Board goalBoard = new Board();
     int row;
     int col;
+    static Board goalBoard;
 
     /**
      * Constructor for board object to get a certain board by a string
@@ -19,14 +19,21 @@ public class Board {
 
         this.Insert(boardString);
 
-        setGoalBoard();
+        setGoalBoard(row, col);
     }
 
     /**
      * Constructor for board object in case that the user want to get an EMPTY board
      */
-    public Board() {
+    public Board(int row, int col) {
         this.tiles = new Tile[row][col];
+    }
+
+    /**
+     * constructor for board object
+     */
+    public Board(){
+        this.tiles = new Tile[0][0];
     }
 
     /**
@@ -77,7 +84,8 @@ public class Board {
      * This method generates a static Board with Tiles numbered from 1 to (row * col - 1) and a blank Tile represented
      * by 0, that is a Board matches the final board of the game (goal board).
      */
-    public void setGoalBoard(){
+    public void setGoalBoard(int row, int col){
+         goalBoard = new Board(row, col);
         // Initialize a counter to keep track of the Tile number
         int count = 1;
 

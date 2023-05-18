@@ -31,9 +31,8 @@ public class State {
      * @return boolean
      */
     public boolean isGoal(){
-        Tile[][] thisTiles = this.board.tiles;
-        Tile[][] goalTiles = this.board.goalTiles;
-        if (thisTiles.equals(goalTiles)){
+        Board thisBoard = this.board;
+        if (thisBoard.equals(Board.goalBoard)){
             return true;
         }
         return false;
