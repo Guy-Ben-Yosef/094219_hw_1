@@ -31,7 +31,7 @@ public class State {
      * @return boolean
      */
     public boolean isGoal(){
-        if (this.equals(this.board.goalBoard)){
+        if (this.equals(this.board.goalTiles)){
             return true;
         }
         return false;
@@ -90,7 +90,7 @@ public class State {
     private int[] findEmptyTileIndexes(){
         for (int i = 0; i < this.board.row; i++){
             for (int j = 0; j < this.board.col; j++){
-                if (this.board.board[i][j].get() == 0){
+                if (this.board.tiles[i][j].get() == 0){
                     return new int[]{i, j};
                 }
             }
@@ -115,8 +115,8 @@ public class State {
         Tile targetTile = action.tile;
 
         // Move the tile to the new position and replace the old position with an empty tile
-        newState.board.board[emptyTileIndexes[0]][emptyTileIndexes[1]].set(targetTile.get());
-        newState.board.board[i][j].set(0);
+        newState.board.tiles[emptyTileIndexes[0]][emptyTileIndexes[1]].set(targetTile.get());
+        newState.board.tiles[i][j].set(0);
 
         // Update the empty tile indexes
         newState.emptyTileIndexes[0] = i;

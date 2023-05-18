@@ -22,6 +22,21 @@ public class Node {
         this.actionToThisState = actionToThisState;
     }
 
+
+    /**
+     * @return the current state
+     */
+    public State getState(){
+        return this.nodeState;
+    }
+
+    /**
+     * @return this node's action
+     */
+    public Action getAction() {
+        return this.actionToThisState;
+    }
+
     /**
      * Expands the current node to generate all possible child nodes.
      *
@@ -42,7 +57,7 @@ public class Node {
             int targetI = targetTileIndexes[0];
             int targetJ = targetTileIndexes[1];
             // Create a new Action object with the target tile indexes and direction
-            Action actionToChild = new Action(targetI, targetJ, this.nodeState.stateBoard.board[targetI][targetJ], direction);
+            Action actionToChild = new Action(targetI, targetJ, this.nodeState.board.tiles[targetI][targetJ], direction);
             // Calculate the resulting state after performing the action
             State childState = this.nodeState.result(actionToChild);
             // Create a new Node object with the child state, current node, and action to child
@@ -69,16 +84,16 @@ public class Node {
     }
 
     /**
-     * Calaulating the distance of current tile from the original
+     * Calculating the distance of current tile from the original
      * @param i row parameter
      * @param j column parameter
      * @param value at i,j board
      * @return the distance
      */
     public int distance(int i, int j, int value){
-        for (int l = 0; l < this.nodeState.stateBoard.row; l++){  // looping all tile's board.
-            for (int m = 0; m  < this.nodeState.stateBoard.col; m++) {
-                if(value == this.nodeState.stateBoard.goalBoard[l][m].get()){
+        for (int l = 0; l < this.nodeState.board.row; l++){  // looping all tile's board.
+            for (int m = 0; m  < this.nodeState.board.col; m++) {
+                if(value == this.nodeState.board.goalTiles[l][m].get()){
                     return 0;  // TO BE DELETED
 //                    return (abs(i - l) + abs(j - m));
                 }
