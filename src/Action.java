@@ -2,11 +2,22 @@
 public class Action {
     int i;
     int j;
+    Tile tile;
     PossibleDirection direction;
-    public Action(int[] targetTileIndexes, PossibleDirection direction) {
-        this.i = targetTileIndexes[0];
-        this.j = targetTileIndexes[1];
+    public Action(int i, int j, Tile tile, PossibleDirection direction) {
+        this.i = i;
+        this.j = j;
+        this.tile = tile;
         this.direction = direction;
+    }
+
+    /**
+     * This method does not get any parameter as an input and returns string in the form of "Move 7 down"
+     *
+     * @return String
+     */
+    public String toString() {
+        return "Move " + tile.get() + " " + direction.toString().toLowerCase();
     }
 
     /**
@@ -14,14 +25,15 @@ public class Action {
      * @return State
      */
     public int[] actionAsNewIndexes() {
-        if (direction == PossibleDirection.UP) {
-            return new int[]{i+1, j};
-        } else if (direction == PossibleDirection.DOWN) {
-            return new int[]{i-1, j};
-        } else if (direction == PossibleDirection.RIGHT) {
-            return new int[]{i, j+1};
-        } else if (direction == PossibleDirection.LEFT) {
-            return new int[]{i, j-1};
+        switch (direction) {
+            case UP:
+                return new int[]{i + 1, j};
+            case DOWN:
+                return new int[]{i - 1, j};
+            case RIGHT:
+                return new int[]{i, j + 1};
+            case LEFT:
+                return new int[]{i, j - 1};
         }
         return null;
     }
@@ -32,16 +44,16 @@ public class Action {
      * @return State
      */
     public static int[] convertEmptyToTarget(int[] emptyIndexes, PossibleDirection direction) {
-        if (direction == PossibleDirection.UP) {
-            return new int[]{emptyIndexes[0]-1, emptyIndexes[1]};
-        } else if (direction == PossibleDirection.DOWN) {
-            return new int[]{emptyIndexes[0]+1, emptyIndexes[1]};
-        } else if (direction == PossibleDirection.RIGHT) {
-            return new int[]{emptyIndexes[0], emptyIndexes[1]-1};
-        } else if (direction == PossibleDirection.LEFT) {
-            return new int[]{emptyIndexes[0], emptyIndexes[1]+1};
+        switch (direction) {
+            case UP:
+                return new int[]{emptyIndexes[0] + 1, emptyIndexes[1]};
+            case DOWN:
+                return new int[]{emptyIndexes[0] - 1, emptyIndexes[1]};
+            case RIGHT:
+                return new int[]{emptyIndexes[0], emptyIndexes[1] - 1};
+            case LEFT:
+                return new int[]{emptyIndexes[0], emptyIndexes[1] + 1};
         }
         return null;
     }
-
 }

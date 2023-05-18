@@ -8,41 +8,21 @@
  * 5. result()       - This method returns the state after an action is committed.
  */
 public class State {
-    Tile[][] state;
+    Board stateBoard;
     int[] emptyTileIndexes;
-    Board GOAL_BOARD = getGoalBoard();;
 
     /**
      * Constructor for State
-     * @param board the current board
+     * @param stateBoard the current board
      */
-    public State(Tile[][] board){
-        this.state = board;
-        this.emptyTileIndexes = findEmptyTileIndexes();
+    public State(Board stateBoard, int[] emptyTileIndexes){
+        this.stateBoard = stateBoard;
+        this.emptyTileIndexes = emptyTileIndexes;
     }
 
-    /**
-     * This method generates a Board with Tiles numbered from 1 to (row * col - 1) and a blank Tile represented by 0,
-     * that is a Board matches the final board of the game (goal board).
-     */
-    public static Board getGoalBoard(){
-        Board goalBoard = new Board();
-        // Initialize a counter to keep track of the Tile number
-        int count = 1;
-
-        // Loop through each row and column of the board
-        for (int i = 0; i < Board.row; i++){
-            for (int j = 0; j < Board.col; j++){
-                // Check if the current Tile should be numbered or blank
-                if (count < Board.row * Board.col){
-                    goalBoard.board[i][j] = new Tile(count);
-                } else {
-                    goalBoard.board[i][j] = new Tile(0);
-                }
-                count ++;
-            }
-        }
-        return goalBoard;
+    public State(Board stateBoard){
+        this.stateBoard = stateBoard;
+        this.emptyTileIndexes = findEmptyTileIndexes();
     }
 
     /**
@@ -51,7 +31,7 @@ public class State {
      * @return boolean
      */
     public boolean isGoal(){
-        if (this.equals(GOAL_BOARD)){
+        if (this.equals(this.stateBoard.goalBoard)){
             return true;
         }
         return false;
@@ -74,11 +54,11 @@ public class State {
         // Find the possible actions
         if (emptyTileI > 0) {
             possibleActions[0] = 1;
-        } else if (emptyTileI < Board.row - 1) {
+        } else if (emptyTileI < this.stateBoard.row - 1) {
             possibleActions[1] = 1;
         } else if (emptyTileJ > 0) {
             possibleActions[2] = 1;
-        } else if (emptyTileJ < Board.col - 1) {
+        } else if (emptyTileJ < this.stateBoard.col - 1) {
             possibleActions[3] = 1;
         }
 
@@ -108,9 +88,9 @@ public class State {
      * @return int[]
      */
     private int[] findEmptyTileIndexes(){
-        for (int i = 0; i < Board.row; i++){
-            for (int j = 0; j < Board.col; j++){
-                if (this.state[i][j].get() == 0){
+        for (int i = 0; i < this.stateBoard.row; i++){
+            for (int j = 0; j < this.stateBoard.col; j++){
+                if (this.stateBoard.board[i][j].get() == 0){
                     return new int[]{i, j};
                 }
             }
@@ -125,23 +105,23 @@ public class State {
      * @return The updated state of the game as a State object.
      */
     public State result(Action action) {
+        State newState = new State(this.stateBoard, this.emptyTileIndexes);
+
         // Get the current position of the tile that will be moved
         int i = action.i;
         int j = action.j;
 
         // Get the tile that will be moved
-        Tile movingTile = this.state[i][j];
-
-        // Calculate the new position of the tile based on the action
-        int[] newIndexes = action.actionAsNewIndexes();
+        Tile targetTile = action.tile;
 
         // Move the tile to the new position and replace the old position with an empty tile
-        this.state[newIndexes[0]][newIndexes[1]] = movingTile;
-        this.state[i][j] = new Tile(0);
+        newState.stateBoard.board[emptyTileIndexes[0]][emptyTileIndexes[1]].set(targetTile.get());
+        newState.stateBoard.board[i][j].set(0);
 
         // Update the empty tile indexes
-        this.emptyTileIndexes = newIndexes;
-        return this;
+        newState.emptyTileIndexes[0] = i;
+        newState.emptyTileIndexes[1] = j;
+        return newState;
     }
 
     @Override
