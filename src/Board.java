@@ -40,24 +40,14 @@ public class Board {
      * Inserting the board all the tiles
      */
     private void Insert(String boardString) {
-        int count = -1;
-        int i = 0;
-        while ((i < row) && (count < boardString.length() - 1)) {
-            int j = 0;
-            while ((j  < col) && (count < boardString.length() - 1)) {
-                count ++;
-                if (boardString.charAt(count) == '|') {
-                    i ++;
-                } else if (boardString.charAt(count) == ' ') {
-                    j ++;
-                } else if(boardString.charAt(count) == '_'){
-                    this.tiles[i][j] = new Tile(0);
-                }else{
-                    // Get the relevant Char from boardString
-                    char relevantChar = boardString.charAt(count);
-                    // Convert this Char to int
-                    int charAsInt = Character.getNumericValue(relevantChar);
-                    this.tiles[i][j] = new Tile(charAsInt);
+        String[] rowsStrings = boardString.split("\\|");  // Splitting the board to rows
+        for (int i = 0; i < rowsStrings.length; i++) {
+            String[] colsStrings = rowsStrings[i].split(" ");  // Splitting the board to columns
+            for (int j = 0; j < colsStrings.length; j++) {
+                if (colsStrings[j].equals("_")) {
+                    this.tiles[i][j] = new Tile(0);  // Inserting the blank tile
+                } else {
+                    this.tiles[i][j] = new Tile(Integer.parseInt(colsStrings[j]));  // Inserting the tile
                 }
             }
         }
