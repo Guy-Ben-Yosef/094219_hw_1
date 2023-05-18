@@ -6,10 +6,6 @@ public class Board {
     int row;
     int col;
 
-    int test;
-
-
-
     /**
      * Constructor for board object to get a certain board by a string
      * @param boardString is a string - need to be converted
