@@ -8,20 +8,23 @@
  * 5. result()       - This method returns the state after an action is committed.
  */
 public class State {
-    Tile[][] state;
+    Board state;
     int[] emptyTileIndexes;
+
+    public State(Board state, Action action){
+        this.state = state.state.result(action);
+    }
 
     /**
      * Constructor for State
      * @param state the current board
      */
-    public State(Tile[][] state, int[] emptyTileIndexes){
+    public State(Board state, int[] emptyTileIndexes){
         this.state = state;
         this.emptyTileIndexes = emptyTileIndexes;
-//        this.emptyTileIndexes = findEmptyTileIndexes();
     }
 
-    public State(Tile[][] state){
+    public State(Board state){
         this.state = state;
         this.emptyTileIndexes = findEmptyTileIndexes();
     }
@@ -32,7 +35,7 @@ public class State {
      * @return boolean
      */
     public boolean isGoal(){
-        if (this.equals(GOAL_BOARD)){
+        if (this.equals(this.goalBoard)){
             return true;
         }
         return false;
@@ -106,22 +109,25 @@ public class State {
      * @return The updated state of the game as a State object.
      */
     public State result(Action action) {
-        // Get the current position of the tile that will be moved
-        int i = action.i;
-        int j = action.j;
 
-        // Get the tile that will be moved
-        Tile movingTile = this.state[i][j];
 
-        // Calculate the new position of the tile based on the action
-        int[] newIndexes = action.actionAsNewIndexes();
 
-        // Move the tile to the new position and replace the old position with an empty tile
-        this.state[newIndexes[0]][newIndexes[1]] = movingTile;
-        this.state[i][j] = new Tile(0);
-
-        // Update the empty tile indexes
-        this.emptyTileIndexes = newIndexes;
+//        // Get the current position of the tile that will be moved
+//        int i = action.i;
+//        int j = action.j;
+//
+//        // Get the tile that will be moved
+//        Tile movingTile = this.state[i][j];
+//
+//        // Calculate the new position of the tile based on the action
+//        int[] newIndexes = action.actionAsNewIndexes();
+//
+//        // Move the tile to the new position and replace the old position with an empty tile
+//        this.state[newIndexes[0]][newIndexes[1]] = movingTile;
+//        this.state[i][j] = new Tile(0);
+//
+//        // Update the empty tile indexes
+//        this.emptyTileIndexes = newIndexes;
         return this;
     }
 
