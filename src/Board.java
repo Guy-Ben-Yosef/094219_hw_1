@@ -2,7 +2,7 @@ import java.util.Arrays;
 
 public class Board {
     Tile[][] tiles;
-    Tile[][] goalTiles;
+    static Board goalBoard = new Board();
     int row;
     int col;
 
@@ -19,7 +19,7 @@ public class Board {
 
         this.Insert(boardString);
 
-        this.goalTiles = getGoalTiles();
+        setGoalBoard();
     }
 
     /**
@@ -74,11 +74,10 @@ public class Board {
     }
 
     /**
-     * This method generates a Board with Tiles numbered from 1 to (row * col - 1) and a blank Tile represented by 0,
-     * that is a Board matches the final board of the game (goal board).
+     * This method generates a static Board with Tiles numbered from 1 to (row * col - 1) and a blank Tile represented
+     * by 0, that is a Board matches the final board of the game (goal board).
      */
-    public Tile[][] getGoalTiles(){
-        goalTiles = new Tile[row][col];
+    public void setGoalBoard(){
         // Initialize a counter to keep track of the Tile number
         int count = 1;
 
@@ -87,14 +86,13 @@ public class Board {
             for (int j = 0; j < this.col; j++){
                 // Check if the current Tile should be numbered or blank
                 if (count < this.row * this.col){
-                    goalTiles[i][j] = new Tile(count);
+                    Board.goalBoard.tiles[i][j] = new Tile(count);
                 } else {
-                    goalTiles[i][j] = new Tile(0);
+                    Board.goalBoard.tiles[i][j] = new Tile(0);
                 }
                 count ++;
             }
         }
-        return goalTiles;
     }
 
     /**

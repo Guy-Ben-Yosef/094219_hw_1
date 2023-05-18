@@ -31,7 +31,9 @@ public class State {
      * @return boolean
      */
     public boolean isGoal(){
-        if (this.equals(this.board.goalTiles)){
+        Tile[][] thisTiles = this.board.tiles;
+        Tile[][] goalTiles = this.board.goalTiles;
+        if (thisTiles.equals(goalTiles)){
             return true;
         }
         return false;
@@ -108,7 +110,8 @@ public class State {
      * @return The updated state of the game as a State object.
      */
     public State result(Action action) {
-        State newState = new State(this.board, this.emptyTileIndexes);
+        int[] copiedEmptyTileIndexes = {this.emptyTileIndexes[0], this.emptyTileIndexes[1]};
+        State newState = new State(this.board.copy(), copiedEmptyTileIndexes);
 
         // Get the current position of the tile that will be moved
         int i = action.i;
