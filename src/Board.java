@@ -58,6 +58,7 @@ public class Board {
 
     /**
      * Printing the current board
+     * TODO: need to be deleted
      */
     public void print(){
         for (int i = 0; i < row; i++){
@@ -94,6 +95,25 @@ public class Board {
             }
         }
         return goalTiles;
+    }
+
+    /**
+     * This method make a copy of the current board
+     * @return (Board) a copy of the current board
+     */
+    public Board copy() {
+        Board newBoard = new Board();
+        newBoard.row = this.row;
+        newBoard.col = this.col;
+        newBoard.tiles = new Tile[row][col];
+
+        // Loop through each row and column of the board
+        for (int i = 0; i < this.row; i++){
+            for (int j = 0; j < this.col; j++){
+                newBoard.tiles[i][j] = new Tile(this.tiles[i][j].get());  // Copy the Tile
+            }
+        }
+        return newBoard;
     }
 
     @Override
