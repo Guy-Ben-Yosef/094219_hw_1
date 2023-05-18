@@ -6,20 +6,28 @@
  */
 public class Node {
     State nodeState;
-    Node father;
+    Node parent;
     Action actionToThisState;
     int heuristicValue;
 
     /**
      * Constructor
      * @param nodeState the current state
-     * @param father the parent node
+     * @param parent the parent node
      * @param actionToThisState the action that was performed to reach this state
      */
-    public Node(State nodeState, Node father, Action actionToThisState) {
+    public Node(State nodeState, Node parent, Action actionToThisState) {
         this.nodeState = nodeState;
-        this.father = father;
+        this.parent = parent;
         this.actionToThisState = actionToThisState;
+    }
+
+    /**
+     * Constructor for first node of the game (the first node has no parent and no action)
+     * @param nodeState the current state
+     */
+    public Node(State nodeState) {
+        this.nodeState = nodeState;
     }
 
 
@@ -35,6 +43,13 @@ public class Node {
      */
     public Action getAction() {
         return this.actionToThisState;
+    }
+
+    /**
+     * @return the parent node
+     */
+    public Node getParent() {
+        return this.parent;
     }
 
     /**
