@@ -6,6 +6,8 @@ public class Board {
     int row;
     int col;
 
+    int test;
+
 
 
     /**
