@@ -31,7 +31,7 @@ public class State {
      * @return boolean
      */
     public boolean isGoal(){
-        if (this.equals(this.goalBoard)){
+        if (this.equals(this.state.goalBoard)){
             return true;
         }
         return false;
@@ -54,11 +54,11 @@ public class State {
         // Find the possible actions
         if (emptyTileI > 0) {
             possibleActions[0] = 1;
-        } else if (emptyTileI < Board.row - 1) {
+        } else if (emptyTileI < this.state.row - 1) {
             possibleActions[1] = 1;
         } else if (emptyTileJ > 0) {
             possibleActions[2] = 1;
-        } else if (emptyTileJ < Board.col - 1) {
+        } else if (emptyTileJ < this.state.col - 1) {
             possibleActions[3] = 1;
         }
 
@@ -88,9 +88,9 @@ public class State {
      * @return int[]
      */
     private int[] findEmptyTileIndexes(){
-        for (int i = 0; i < Board.row; i++){
-            for (int j = 0; j < Board.col; j++){
-                if (this.state[i][j].get() == 0){
+        for (int i = 0; i < this.state.row; i++){
+            for (int j = 0; j < this.state.col; j++){
+                if (this.state.board[i][j].get() == 0){
                     return new int[]{i, j};
                 }
             }
