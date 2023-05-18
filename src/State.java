@@ -10,39 +10,20 @@
 public class State {
     Tile[][] state;
     int[] emptyTileIndexes;
-    Board GOAL_BOARD = getGoalBoard();;
 
     /**
      * Constructor for State
-     * @param board the current board
+     * @param state the current board
      */
-    public State(Tile[][] board){
-        this.state = board;
-        this.emptyTileIndexes = findEmptyTileIndexes();
+    public State(Tile[][] state, int[] emptyTileIndexes){
+        this.state = state;
+        this.emptyTileIndexes = emptyTileIndexes;
+//        this.emptyTileIndexes = findEmptyTileIndexes();
     }
 
-    /**
-     * This method generates a Board with Tiles numbered from 1 to (row * col - 1) and a blank Tile represented by 0,
-     * that is a Board matches the final board of the game (goal board).
-     */
-    public static Board getGoalBoard(){
-        Board goalBoard = new Board();
-        // Initialize a counter to keep track of the Tile number
-        int count = 1;
-
-        // Loop through each row and column of the board
-        for (int i = 0; i < Board.row; i++){
-            for (int j = 0; j < Board.col; j++){
-                // Check if the current Tile should be numbered or blank
-                if (count < Board.row * Board.col){
-                    goalBoard.board[i][j] = new Tile(count);
-                } else {
-                    goalBoard.board[i][j] = new Tile(0);
-                }
-                count ++;
-            }
-        }
-        return goalBoard;
+    public State(Tile[][] state){
+        this.state = state;
+        this.emptyTileIndexes = findEmptyTileIndexes();
     }
 
     /**
