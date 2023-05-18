@@ -60,11 +60,11 @@ public class Node {
     public int heuristicValue() {
         heuristicValue = 0;
 
-        for (int i = 0; i < this.nodeState.stateBoard.row; i++){  // looping all tile's board.
-            for (int j = 0; j  < this.nodeState.stateBoard.col; j++) {
-                heuristicValue += distance(i, j, this.nodeState.stateBoard.board[i][j].get());
-            }
-        } 
+//        for (int i = 0; i < this.nodeState.stateBoard.row; i++){  // looping all tile's board.
+//            for (int j = 0; j  < this.nodeState.stateBoard.col; j++) {
+//                heuristicValue += distance(i, j, this.nodeState.stateBoard.board[i][j].get());
+//            }
+//        }
         return heuristicValue;
     }
 
@@ -79,7 +79,8 @@ public class Node {
         for (int l = 0; l < this.nodeState.stateBoard.row; l++){  // looping all tile's board.
             for (int m = 0; m  < this.nodeState.stateBoard.col; m++) {
                 if(value == this.nodeState.stateBoard.goalBoard[l][m].get()){
-                    return (abs(i - l) + abs(j - m));
+                    return 0;  // TO BE DELETED
+//                    return (abs(i - l) + abs(j - m));
                 }
              }
          } 
