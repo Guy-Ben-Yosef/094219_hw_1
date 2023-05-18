@@ -8,6 +8,7 @@ public class Node {
     State state;
     Node father;
     Action actionToThisState;
+    int heuristicValue;
 
     /**
      * Constructor
@@ -48,8 +49,38 @@ public class Node {
         return children;
     }
 
+
+    /**
+     * Heuristic value based on  Manhattan geometry 
+     * @return the heuristic grade
+     */
     public int heuristicValue() {
-        // TODO - Implement heuristic function
-        return 0;
+        heuristicValue = 0;
+
+        for (int i = 0; i < state.row; i++){  // looping all tile's board.
+            for (int j = 0; j  < state.col; j++) {
+                heuristicValue += distance(i, j, state[i][j].get());
+            }
+        } 
+        return heuristicValue;
+    }
+
+    /**
+     * Calaulating the distance of current tile from the original
+     * @param i row parameter
+     * @param j column parameter
+     * @param value at i,j board
+     * @return the distance
+     */
+    public int distance(int i, int j, int value){
+        for (int l = 0; l < state.GOAL_BOARD.row; l++){  // looping all tile's board.
+            for (int m = 0; m  < state.GOAL_BOARD.col; m++) {
+                if(value == state.goalBoard[l][m]){
+                    return (abs(i -l) + abs(j-m));
+                }
+             }
+         } 
+
+         return 0;
     }
 }
