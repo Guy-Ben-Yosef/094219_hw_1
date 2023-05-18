@@ -6,19 +6,15 @@ public class Board {
     int row;
     int col;
 
-    int test;
-
-
-
     /**
      * Constructor for board object to get a certain board by a string
      * @param boardString is a string - need to be converted
      */
     public Board(String boardString){
-        String[] splittedString = "\\|".split(boardString) ;
+        String[] splittedString = boardString.split("\\|") ;
 
         row = splittedString.length;
-        col = " ".split(splittedString[0]).length;
+        col = splittedString[0].split(" ").length;
         this.tiles = new Tile[row][col];
 
         this.Insert(boardString);
@@ -37,22 +33,25 @@ public class Board {
      * Inserting the board all the tiles
      */
     private void Insert(String boardString) {
-        int count = 0;
-
-        for (int i = 0; i < row; i++){
-            for (int j = 0; j  < col; j++){
-                if (boardString.charAt(count) == '|'){
-                    count ++;
-                    continue;
-
+        int count = -1;
+        int i = 0;
+        while ((i < row) && (count < boardString.length() - 1)) {
+            int j = 0;
+            while ((j  < col) && (count < boardString.length() - 1)) {
+                count ++;
+                if (boardString.charAt(count) == '|') {
+                    i ++;
+                } else if (boardString.charAt(count) == ' ') {
+                    j ++;
                 } else if(boardString.charAt(count) == '_'){
                     this.tiles[i][j] = new Tile(0);
-
                 }else{
-                    this.tiles[i][j] = new Tile(boardString.charAt(count));
+                    // Get the relevant Char from boardString
+                    char relevantChar = boardString.charAt(count);
+                    // Convert this Char to int
+                    int charAsInt = Character.getNumericValue(relevantChar);
+                    this.tiles[i][j] = new Tile(charAsInt);
                 }
-
-                count ++;
             }
         }
     }
@@ -78,6 +77,7 @@ public class Board {
      * that is a Board matches the final board of the game (goal board).
      */
     public Tile[][] getGoalTiles(){
+        goalTiles = new Tile[row][col];
         // Initialize a counter to keep track of the Tile number
         int count = 1;
 
