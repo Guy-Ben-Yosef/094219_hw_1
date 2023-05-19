@@ -53,7 +53,7 @@ public class State {
         int[] possibleActions = new int[4];  // {up, down, right, left}
 
         // Find the possible actions
-        if (emptyTileI < this.board.row - 1) {
+        if (emptyTileI < Board.row - 1) {
             possibleActions[0] = 1;  // UP is possible
         }
         if (emptyTileI > 0) {
@@ -62,7 +62,7 @@ public class State {
         if (emptyTileJ > 0) {
             possibleActions[2] = 1;  // RIGHT is possible
         }
-        if (emptyTileJ < this.board.col - 1) {
+        if (emptyTileJ < Board.col - 1) {
             possibleActions[3] = 1;  // LEFT is possible
         }
 
@@ -92,8 +92,8 @@ public class State {
      * @return int[]
      */
     private int[] findEmptyTileIndexes(){
-        for (int i = 0; i < this.board.row; i++){
-            for (int j = 0; j < this.board.col; j++){
+        for (int i = 0; i < Board.row; i++){
+            for (int j = 0; j < Board.col; j++){
                 if (this.board.tiles[i][j].get() == 0){
                     return new int[]{i, j};
                 }

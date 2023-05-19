@@ -84,42 +84,55 @@ public class Node {
 
 
     /**
-     * Heuristic value based on  Manhattan geometry 
+     * Heuristic value based on Manhattan geometry
      * @return the heuristic grade
      */
     public int heuristicValue() {
         int heuristicValue = 0;
         // Loop through all tiles in the board and calculate the distance of each tile from its original position
-        for (int i = 0; i < this.nodeState.board.row; i++){  // looping all tile's board.
-            for (int j = 0; j  < this.nodeState.board.col; j++) {
+        for (int i = 0; i < Board.row; i++){  // looping all tile's board.
+            for (int j = 0; j  < Board.col; j++) {
                 Tile thisTile = this.nodeState.board.tiles[i][j];
-                Tile goalTile = Board.goalBoard.tiles[i][j];
-                if (!thisTile.equals(goalTile)) {
-                    heuristicValue ++;
-                }
-
+                heuristicValue += distance(i, j, thisTile.get());
             }
         }
         return heuristicValue;
     }
 
     /**
-     * Calculating the distance of current tile from the original
+     * Calculating the distance of a tile from its goal position
      * @param i row parameter
      * @param j column parameter
      * @param value at i,j board
      * @return the distance
      */
     public int distance(int i, int j, int value){
-        for (int l = 0; l < this.nodeState.board.row; l++){  // looping all tile's board.
-            for (int m = 0; m  < this.nodeState.board.col; m++) {
-                if(value == Board.goalBoard.tiles[l][m].get()){
-                    return 0;  // TO BE DELETED
-//                    return (abs(i - l) + abs(j - m));
-                }
-             }
-         } 
+        int l, m; // Declaring the row and column of the tile's goal position
 
-         return 0;
+        if (value >= 1) {
+            l = (value - 1) / Board.col;  // Integer division
+            m = value - (l * Board.col + 1);
+        } else {
+            l = (Board.row - 1);
+            m = (Board.col - 1);
+        }
+        float horizontalDistance = Node.abs(i - l);
+        float verticalDistance = Node.abs(j - m);
+
+        return (int) (horizontalDistance + verticalDistance);
+
+    }
+
+    /**
+     * Calculating the absolute value of a number
+     * @param x the number
+     * @return absolute value of x
+     */
+    private static float abs(float x) {
+        if (x >= 0) {
+            return x;
+        } else {
+            return -x;
+        }
     }
 }
