@@ -93,22 +93,38 @@ public class Node {
         for (int i = 0; i < Board.row; i++){  // looping all tile's board.
             for (int j = 0; j  < Board.col; j++) {
                 Tile thisTile = this.nodeState.board.tiles[i][j];
-                heuristicValue += distance(i, j, thisTile.get());
+                int[] goalIndexes = value2GoalIndexes(thisTile.get());
+                heuristicValue += manhattanDistance(i, j, goalIndexes[0], goalIndexes[1]);
             }
         }
         return heuristicValue;
     }
 
-    /**
-     * Calculating the distance of a tile from its goal position
-     * @param i row parameter
-     * @param j column parameter
-     * @param value at i,j board
-     * @return the distance
-     */
-    public int distance(int i, int j, int value){
-        int l, m; // Declaring the row and column of the tile's goal position
 
+    /**
+     * Calculating the distance of a tile from its goal position in the sense of Manhattan geometry
+     * @param iCurrent current row index of a tile
+     * @param jCurrent current column index of a tile
+     * @param iGoal goal row index of a tile
+     * @param jGoal goal column index of a tile
+     * @return the distance of a tile from its goal position
+     */
+    public int manhattanDistance(int iCurrent, int jCurrent, int iGoal, int jGoal){
+        float horizontalDistance = abs(iCurrent - iGoal);
+        float verticalDistance = abs(jCurrent - jGoal);
+
+        return (int) (horizontalDistance + verticalDistance);
+
+    }
+
+    /**
+     * This method convert between the value of a tile and its goal position
+     *
+     * @param value the value of a tile
+     * @return the row and column indexes of the tile's goal position
+     */
+    private int[] value2GoalIndexes(int value) {
+        int l, m; // Declaring the row and column of the tile's goal position
         if (value >= 1) {
             l = (value - 1) / Board.col;  // Integer division
             m = value - (l * Board.col + 1);
@@ -116,11 +132,8 @@ public class Node {
             l = (Board.row - 1);
             m = (Board.col - 1);
         }
-        float horizontalDistance = Node.abs(i - l);
-        float verticalDistance = Node.abs(j - m);
-
-        return (int) (horizontalDistance + verticalDistance);
-
+        int[] indexes = {l, m};
+        return indexes;
     }
 
     /**
@@ -128,7 +141,7 @@ public class Node {
      * @param x the number
      * @return absolute value of x
      */
-    private static float abs(float x) {
+    public static float abs(float x) {
         if (x >= 0) {
             return x;
         } else {
