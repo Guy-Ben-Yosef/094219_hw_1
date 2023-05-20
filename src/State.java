@@ -118,10 +118,11 @@ public class State {
 
         // Get the tile that will be moved
         Tile targetTile = action.tile;
+        Tile emptyTile = newState.board.tiles[emptyTileIndexes[0]][emptyTileIndexes[1]];
 
         // Move the tile to the new position and replace the old position with an empty tile
-        newState.board.tiles[emptyTileIndexes[0]][emptyTileIndexes[1]].set(targetTile.get());
-        newState.board.tiles[i][j].set(0);
+        newState.board.tiles[emptyTileIndexes[0]][emptyTileIndexes[1]] = targetTile;
+        newState.board.tiles[i][j] = emptyTile;
 
         // Update the empty tile indexes
         newState.emptyTileIndexes[0] = i;

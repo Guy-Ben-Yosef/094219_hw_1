@@ -5,7 +5,7 @@ public class Tile {
      * Constructor for Tile
      * @param value of specific tile
      */
-    public Tile(int value){  // TODO: how much bytes should be assigned to this type?
+    public Tile(int value){
         this.value = value;
     }
 
@@ -14,12 +14,6 @@ public class Tile {
      * @return the tile value
      */
     public int get(){ return this.value; }
-
-    /**
-     * set method
-     * @param new_value the new value of the tile
-     */
-    public void set(int new_value){ this.value = new_value; }
 
     @Override
     public boolean equals(Object other) {
