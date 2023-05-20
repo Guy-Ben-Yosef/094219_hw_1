@@ -282,16 +282,16 @@ public class Node {
      * @return the sum of the Manhattan distances of all tiles in the board
      */
     private int calcManhattanDistances() {
-        int manhattedDistancts = 0;
+        int manhattedDistances = 0;
         // Loop through all tiles in the board and calculate the distance of each tile from its original position
         for (int i = 0; i < Board.row; i++){  // looping all tile's board.
             for (int j = 0; j  < Board.col; j++) {
-                Tile thisTile = this.nodeState.board.tiles[i][j];
-                int[] goalIndexes = value2GoalIndexes(thisTile.get());
-                manhattedDistancts += manhattanDistance(i, j, goalIndexes[0], goalIndexes[1]);
+                int tileValue = this.nodeState.board.tiles[i][j].get();
+                int[] goalIndexes = value2GoalIndexes(tileValue);
+                manhattedDistances += manhattanDistance(i, j, goalIndexes[0], goalIndexes[1]);
             }
         }
-        return manhattedDistancts;
+        return manhattedDistances;
     }
 
     /**
