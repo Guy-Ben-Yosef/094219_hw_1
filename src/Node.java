@@ -8,7 +8,6 @@ public class Node {
     State nodeState;
     Node parent;
     Action actionToThisState;
-//    int heuristicValue;
 
     /**
      * Constructor
@@ -53,6 +52,13 @@ public class Node {
     }
 
     /**
+     * @return true if the node has a parent, false otherwise
+     */
+    private boolean hasParent() {
+        return (parent != null);
+    }
+
+    /**
      * Expands the current node to generate all possible child nodes.
      *
      * @return An array of Node objects representing the child nodes of the current node.
@@ -61,12 +67,27 @@ public class Node {
         // Get all possible actions for the current state
         PossibleDirection[] possibleDirections = this.nodeState.actions();
 
-        // Create an array of child nodes with the same length as the possible actions
-        Node[] children = new Node[possibleDirections.length];
+        int childrenNumber;
+        if ( this.hasParent() ) {
+            // The number of children is the number of possible actions minus the opposite action to the parent
+            childrenNumber = possibleDirections.length - 1;
+        } else {
+            childrenNumber = possibleDirections.length;
+        }
+        // Create an array of child nodes
+        Node[] children = new Node[childrenNumber];
 
+        int childIndex = 0;
         // For each possible action, create a new child node with the resulting state and add it to the array
-        for (int i = 0; i < children.length; i++) {
-            PossibleDirection direction = possibleDirections[i];
+        for (PossibleDirection direction : possibleDirections) {
+            if (this.hasParent()) {
+                // If the parent node exists, check if the current action is the opposite of the parent's action
+                PossibleDirection parentDirection = this.actionToThisState.direction;
+                if (direction == findOppositeDirection(parentDirection)) {
+                    // If the current action is the opposite of the parent's action, skip this action
+                    continue;
+                }
+            }
             // Calculate the new position of the tile based on the action
             int[] targetTileIndexes = Action.convertEmptyToTarget(this.nodeState.emptyTileIndexes, direction);
             int targetI = targetTileIndexes[0];
@@ -76,10 +97,31 @@ public class Node {
             // Calculate the resulting state after performing the action
             State childState = this.nodeState.result(actionToChild);
             // Create a new Node object with the child state, current node, and action to child
-            children[i] = new Node(childState, this, actionToChild);
+            children[childIndex] = new Node(childState, this, actionToChild);
+
+            childIndex++;
         }
 
         return children;
+    }
+
+    /**
+     * Simple method to get the opposite direction of a given direction
+     * @param direction the direction to find the opposite of
+     * @return the opposite direction
+     */
+    private PossibleDirection findOppositeDirection(PossibleDirection direction) {
+        switch (direction) {
+            case UP:
+                return PossibleDirection.DOWN;
+            case DOWN:
+                return PossibleDirection.UP;
+            case RIGHT:
+                return PossibleDirection.LEFT;
+            case LEFT:
+                return PossibleDirection.RIGHT;
+        }
+        return null;
     }
 
 
@@ -88,17 +130,70 @@ public class Node {
      * @return the heuristic grade
      */
     public int heuristicValue() {
-        int heuristicValue = 0;
-        // Loop through all tiles in the board and calculate the distance of each tile from its original position
-        for (int i = 0; i < Board.row; i++){  // looping all tile's board.
-            for (int j = 0; j  < Board.col; j++) {
-                Tile thisTile = this.nodeState.board.tiles[i][j];
-                int[] goalIndexes = value2GoalIndexes(thisTile.get());
-                heuristicValue += manhattanDistance(i, j, goalIndexes[0], goalIndexes[1]);
+        int manhattanDistances = calcManhattanDistances() * 1;
+//        int linearConflicts = calcLinearConflicts() * 2;
+//        int inversions = countInversions(flattenBoard()) * 2;
+
+        int heuristicValue = manhattanDistances;
+        return heuristicValue;
+    }
+
+
+    /**
+     * calculates the number of inversions in the array. An inversion occurs when two numbers are in reversed order
+     * relative to their desired sorted positions. In other words, an inversion happens when a number precedes another
+     * lower number.
+     * @param flattenedBoard the board as 1D flattened array
+     * @return the number of inversions in the board
+     */
+    private int countInversions(int[] flattenedBoard) {
+        // Initialize the number of inversions to 0
+        int inversions = 0;
+
+        // Iterate over the array
+        for (int i = 0; i < (flattenedBoard.length-1); i++) {
+            // Iterate over the array starting from the next index
+            for (int j = i + 1; j < flattenedBoard.length; j++) {
+                // If the value of the first index is greater than the value of the second index, increment inversions
+                if (flattenedBoard[i] > flattenedBoard[j]) {
+                    inversions++;
+                }
             }
         }
 
+        return inversions;
+
+    }
+
+    /**
+     * @return The board as 1D flattened array
+     */
+    private int[] flattenBoard() {
+        int[] flattenedBoard = new int[Board.row * Board.col];
+        int index = 0;
+        for (int i = 0; i < Board.row; i++) {
+            for (int j = 0; j < Board.col; j++) {
+                int value = this.nodeState.board.tiles[i][j].get();
+                // value equals zero assign the maximal value to the tile that is row*col
+                if (value == 0) {
+                    value = Board.row * Board.col;
+                }
+                flattenedBoard[index] = value;
+                index++;
+            }
+        }
+        return flattenedBoard;
+    }
+
+    /**
+     * This method does not get any parameter as an input, but counts how much linear conflicts there are in the board.
+     *
+     * @return the number of linear conflicts in the board
+     */
+    private int calcLinearConflicts() {
         int linearConflicts = 0;
+
+        // Count linear conflicts in each row and add it to linearConflicts
         for (int i = 0; i < Board.row; i++) {
             // Initialize int array with the size of the board's col
             int[] rowValues = new int[Board.col];
@@ -121,9 +216,10 @@ public class Node {
                 }
             }
             // Check linear conflicts in the row
-            linearConflicts += countLinearConflicts(rowValues);
+            linearConflicts += linearConflicts(rowValues);
         }
 
+        // Count linear conflicts in each column and add it to linearConflicts
         for (int j = 0; j < Board.col; j++) {
             // Initialize int array with the size of the board's row
             int[] colValues = new int[Board.row];
@@ -146,11 +242,9 @@ public class Node {
                 }
             }
             // Check linear conflicts in the column
-            linearConflicts += countLinearConflicts(colValues);
+            linearConflicts += linearConflicts(colValues);
         }
-
-        heuristicValue += (2 * linearConflicts);
-        return heuristicValue;
+        return linearConflicts;
     }
 
     /**
@@ -158,7 +252,7 @@ public class Node {
      * @param values the values of the tiles in a row or column
      * @return the number of linear conflicts
      */
-    private int countLinearConflicts(int[] values) {
+    private int linearConflicts(int[] values) {
         int linearConflicts = 0;  // Initialize the number of linear conflicts
 
         // Skip -1 values
@@ -181,7 +275,24 @@ public class Node {
         return linearConflicts;
     }
 
-
+    /**
+     * This method does not get any parameter as an input, but calculate the sum of the Manhattan distances of all tiles
+     * in the board.
+     *
+     * @return the sum of the Manhattan distances of all tiles in the board
+     */
+    private int calcManhattanDistances() {
+        int manhattedDistancts = 0;
+        // Loop through all tiles in the board and calculate the distance of each tile from its original position
+        for (int i = 0; i < Board.row; i++){  // looping all tile's board.
+            for (int j = 0; j  < Board.col; j++) {
+                Tile thisTile = this.nodeState.board.tiles[i][j];
+                int[] goalIndexes = value2GoalIndexes(thisTile.get());
+                manhattedDistancts += manhattanDistance(i, j, goalIndexes[0], goalIndexes[1]);
+            }
+        }
+        return manhattedDistancts;
+    }
 
     /**
      * Calculating the distance of a tile from its goal position in the sense of Manhattan geometry
