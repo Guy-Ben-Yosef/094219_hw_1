@@ -97,8 +97,90 @@ public class Node {
                 heuristicValue += manhattanDistance(i, j, goalIndexes[0], goalIndexes[1]);
             }
         }
+
+        int linearConflicts = 0;
+        for (int i = 0; i < Board.row; i++) {
+            // Initialize int array with the size of the board's col
+            int[] rowValues = new int[Board.col];
+
+            for (int j = 0; j < Board.col; j++) {
+                int value = this.nodeState.board.tiles[i][j].get();
+                // Get the indexes of the tile's goal position
+                int[] goalIndexes = value2GoalIndexes(value);
+                // If the tile's row index is the same as its goal row index, add it to rowValues, else add -1
+                if (i == goalIndexes[0]) {
+                    // If the value is 0, insert the board's row times board's col (the maximal value) as the value,
+                    // else insert the value
+                    if (value == 0) {
+                        rowValues[j] = (Board.row * Board.col);
+                    } else {
+                        rowValues[j] = value;
+                    }
+                } else {
+                    rowValues[j] = -1;
+                }
+            }
+            // Check linear conflicts in the row
+            linearConflicts += countLinearConflicts(rowValues);
+        }
+
+        for (int j = 0; j < Board.col; j++) {
+            // Initialize int array with the size of the board's row
+            int[] colValues = new int[Board.row];
+
+            for (int i = 0; i < Board.row; i++) {
+                int value = this.nodeState.board.tiles[i][j].get();
+                // Get the indexes of the tile's goal position
+                int[] goalIndexes = value2GoalIndexes(value);
+                // if the tile's col index is the same as its goal col index, add it to colValues, else add -1
+                if (j == goalIndexes[1]) {
+                    // If the value is 0, insert the board's row times board's col (the maximal value) as the value,
+                    // else insert the value
+                    if (value == 0) {
+                        colValues[i] = (Board.row * Board.col);
+                    } else {
+                        colValues[i] = value;
+                    }
+                } else {
+                    colValues[i] = -1;
+                }
+            }
+            // Check linear conflicts in the column
+            linearConflicts += countLinearConflicts(colValues);
+        }
+
+        heuristicValue += (2 * linearConflicts);
         return heuristicValue;
     }
+
+    /**
+     * This method counts the number of linear conflicts in a row or column
+     * @param values the values of the tiles in a row or column
+     * @return the number of linear conflicts
+     */
+    private int countLinearConflicts(int[] values) {
+        int linearConflicts = 0;  // Initialize the number of linear conflicts
+
+        // Skip -1 values
+        for (int i = 0; i < (values.length-1); i++) {
+            if (values[i] == -1) {
+                continue;
+            }
+            int value = values[i];
+            for (int j = i + 1; j < values.length; j++) {
+                // Skip -1 values
+                if (values[j] == -1) {
+                    continue;
+                }
+                int nextValue = values[j];
+                if (value > nextValue) {
+                    linearConflicts++;
+                    }
+                }
+            }
+        return linearConflicts;
+    }
+
 
 
     /**
@@ -109,7 +191,7 @@ public class Node {
      * @param jGoal goal column index of a tile
      * @return the distance of a tile from its goal position
      */
-    public int manhattanDistance(int iCurrent, int jCurrent, int iGoal, int jGoal){
+    private int manhattanDistance(int iCurrent, int jCurrent, int iGoal, int jGoal){
         float horizontalDistance = abs(iCurrent - iGoal);
         float verticalDistance = abs(jCurrent - jGoal);
 
@@ -141,7 +223,7 @@ public class Node {
      * @param x the number
      * @return absolute value of x
      */
-    public static float abs(float x) {
+    private static float abs(float x) {
         if (x >= 0) {
             return x;
         } else {
