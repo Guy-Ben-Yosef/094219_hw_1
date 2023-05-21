@@ -1,4 +1,7 @@
-/* This is the Action class. It is used to represent a single action in the game. */
+/**
+ * This class represents an action that can be performed in the game. It contains information about the tile to be
+ * moved, the direction of the movement, and the new indexes of the tile after the action is committed.
+ */
 public class Action {
     int i;
     int j;

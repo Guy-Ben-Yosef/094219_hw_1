@@ -1,3 +1,9 @@
+/**
+ * Board class represents a game board consisting of tiles. The class provides constructors to create a board object
+ * from a string representation or with specified dimensions, methods to insert tiles into the board, set the goal
+ * board, and create a copy of the board, and overrides the equals and hashCode methods for comparison and hashing
+ * purposes.
+ */
 import java.util.Arrays;
 
 public class Board {
@@ -50,23 +56,6 @@ public class Board {
                     this.tiles[i][j] = new Tile(Integer.parseInt(colsStrings[j]));  // Inserting the tile
                 }
             }
-        }
-    }
-
-    /**
-     * Printing the current board
-     * TODO: need to be deleted
-     */
-    public void print(){
-        for (int i = 0; i < row; i++){
-            for (int j = 0; j  < col; j++) {
-                if (this.tiles[i][j].get() == 0) {
-                    System.out.print("_");
-                } else {
-                    System.out.print(this.tiles[i][j].get());
-                }
-            }
-        System.out.println();
         }
     }
 

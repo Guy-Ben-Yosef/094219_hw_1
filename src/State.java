@@ -1,11 +1,8 @@
 /**
- * This class represents the state of the board at any given time. It has the following methods:
- * 1. getGoalBoard() - This method generates a Board with Tiles numbered from 1 to (row * col - 1) and a blank Tile
- *                     represented by 0, that is a Board matches the final board of the game (goal board).
- * 2. isGoal()       - This method checks if the current board's state is the goal state and returns a boolean value.
- * 3. actions()      - This method returns an array of all possible actions that can be taken from the current state.
- * 4. findEmptyTileIndexes() - This method returns the indexes of the empty Tile in the current state.
- * 5. result()       - This method returns the state after an action is committed.
+ * State class represents the state of the game board. The class provides constructors to create a state object from a
+ * board and empty tile indexes, methods to check if the state is the goal state, retrieve possible actions, find the
+ * empty tile indexes, and perform an action on the state to get the updated state. It also overrides the equals and
+ * hashCode methods for comparison and hashing purposes.
  */
 public class State {
     Board board;
@@ -20,6 +17,10 @@ public class State {
         this.emptyTileIndexes = emptyTileIndexes;
     }
 
+    /**
+     * Constructor for State
+     * @param board the current board
+     */
     public State(Board board){
         this.board = board;
         this.emptyTileIndexes = findEmptyTileIndexes();

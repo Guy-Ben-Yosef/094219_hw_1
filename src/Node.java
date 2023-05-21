@@ -1,8 +1,8 @@
 /**
- * This class represents a node in the search tree.
- * It contains the state of the puzzle, the parent node, and the action that was performed to reach this state.
- * 1. expand() - This method expands the current node to generate all possible child nodes.
- * 2. heuristicValue() - This method calculates the heuristic value of the current node.
+ * Represents a node in a search tree for a specific problem. Each node stores the current state, parent node, and the
+ * action taken to reach the current state. The heuristic value of a node is calculated by the heuristic function of the
+ * issue. The heuristic value is used to determine the order of nodes in the frontier. The node class also provides a
+ * method to expand the node to generate all possible child nodes.
  */
 public class Node {
     State nodeState;
@@ -28,7 +28,6 @@ public class Node {
     public Node(State nodeState) {
         this.nodeState = nodeState;
     }
-
 
     /**
      * @return the current state
@@ -124,65 +123,29 @@ public class Node {
         return null;
     }
 
-
     /**
      * Heuristic value based on Manhattan geometry
      * @return the heuristic grade
      */
     public int heuristicValue() {
-        int manhattanDistances = calcManhattanDistances() * 1;
-//        int linearConflicts = calcLinearConflicts() * 2;
-//        int inversions = countInversions(flattenBoard()) * 2;
+        int DIM_THRESHOLD = 4;
+        int SIZE_THRESHOLD = 20;
+        int manhattanDistances, linearConflicts;
+        manhattanDistances = calcManhattanDistances();
+        if (Board.row * Board.col < SIZE_THRESHOLD) {
+            linearConflicts = calcLinearConflicts();
+        } else {
+            linearConflicts = 0;
+        }
+        int LC;
+        if ((Board.row <= DIM_THRESHOLD) && (Board.col <= DIM_THRESHOLD)) {
+            LC = 2;
+        } else {
+            LC = 0;
+        }
 
-        int heuristicValue = manhattanDistances;
+        int heuristicValue = manhattanDistances + LC * linearConflicts;
         return heuristicValue;
-    }
-
-
-    /**
-     * calculates the number of inversions in the array. An inversion occurs when two numbers are in reversed order
-     * relative to their desired sorted positions. In other words, an inversion happens when a number precedes another
-     * lower number.
-     * @param flattenedBoard the board as 1D flattened array
-     * @return the number of inversions in the board
-     */
-    private int countInversions(int[] flattenedBoard) {
-        // Initialize the number of inversions to 0
-        int inversions = 0;
-
-        // Iterate over the array
-        for (int i = 0; i < (flattenedBoard.length-1); i++) {
-            // Iterate over the array starting from the next index
-            for (int j = i + 1; j < flattenedBoard.length; j++) {
-                // If the value of the first index is greater than the value of the second index, increment inversions
-                if (flattenedBoard[i] > flattenedBoard[j]) {
-                    inversions++;
-                }
-            }
-        }
-
-        return inversions;
-
-    }
-
-    /**
-     * @return The board as 1D flattened array
-     */
-    private int[] flattenBoard() {
-        int[] flattenedBoard = new int[Board.row * Board.col];
-        int index = 0;
-        for (int i = 0; i < Board.row; i++) {
-            for (int j = 0; j < Board.col; j++) {
-                int value = this.nodeState.board.tiles[i][j].get();
-                // value equals zero assign the maximal value to the tile that is row*col
-                if (value == 0) {
-                    value = Board.row * Board.col;
-                }
-                flattenedBoard[index] = value;
-                index++;
-            }
-        }
-        return flattenedBoard;
     }
 
     /**
@@ -282,16 +245,19 @@ public class Node {
      * @return the sum of the Manhattan distances of all tiles in the board
      */
     private int calcManhattanDistances() {
-        int manhattedDistances = 0;
+        int manhattandDistances = 0;
         // Loop through all tiles in the board and calculate the distance of each tile from its original position
         for (int i = 0; i < Board.row; i++){  // looping all tile's board.
             for (int j = 0; j  < Board.col; j++) {
                 int tileValue = this.nodeState.board.tiles[i][j].get();
+                if (tileValue == 0) {
+                    continue;
+                }
                 int[] goalIndexes = value2GoalIndexes(tileValue);
-                manhattedDistances += manhattanDistance(i, j, goalIndexes[0], goalIndexes[1]);
+                manhattandDistances += manhattanDistance(i, j, goalIndexes[0], goalIndexes[1]);
             }
         }
-        return manhattedDistances;
+        return manhattandDistances;
     }
 
     /**
@@ -305,7 +271,6 @@ public class Node {
     private int manhattanDistance(int iCurrent, int jCurrent, int iGoal, int jGoal){
         float horizontalDistance = abs(iCurrent - iGoal);
         float verticalDistance = abs(jCurrent - jGoal);
-
         return (int) (horizontalDistance + verticalDistance);
 
     }
