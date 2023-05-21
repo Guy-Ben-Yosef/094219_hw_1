@@ -4,18 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+    <list default="true" id="804004a3-dfd6-4925-b408-9b1f61a06619" name="Changes" comment="FINAL VERSION">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_05_2023_08_45_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_05_2023_08_45__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_05_2023_16_45_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_05_2023_16_45__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_05_2023_08_46_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_05_2023_08_46__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-      </list>
-    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -28,30 +29,26 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectId" id="2PTLLsTNrJeKrZgi0T0cZUfmoCV" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+  <component name="ProjectId" id="2PxtLHw9huqsnLF8M4ACv9fa3DQ" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="hw_1" type="Application" factoryName="Application">
+      <output_file path="output.txt" is_save="true" />
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="hw_1" />
       <method v="2">
@@ -62,27 +59,101 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="07ef8f36-d4b4-4520-a578-7320ffab3ff0" name="Changes" comment="" />
-      <created>1683476078431</created>
+      <changelist id="804004a3-dfd6-4925-b408-9b1f61a06619" name="Changes" comment="" />
+      <created>1684410508801</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1683476078431</updated>
-      <workItem from="1683476080556" duration="357000" />
-      <workItem from="1683816293990" duration="368000" />
+      <updated>1684410508801</updated>
+      <workItem from="1684410510282" duration="308000" />
+      <workItem from="1684410856621" duration="15065000" />
+      <workItem from="1684477219403" duration="7747000" />
+      <workItem from="1684507657748" duration="27938000" />
     </task>
-    <task id="LOCAL‎00001" summary="Typo in `Tile` class">
-      <created>1683870725592</created>
+    <task id="LOCAL‎00001" summary="test">
+      <created>1684410919056</created>
       <option name="number" value="LOCAL‎00001" />
       <option name="presentableId" value="LOCAL‎00001" />
-      <updated>1683870725592</updated>
+      <updated>1684410919056</updated>
     </task>
-    <task id="LOCAL‎00002" summary="shelves">
-      <created>1683870751043</created>
+    <task id="LOCAL‎00002" summary="Restore from `test`">
+      <created>1684411842424</created>
       <option name="number" value="LOCAL‎00002" />
       <option name="presentableId" value="LOCAL‎00002" />
-      <updated>1683870751043</updated>
+      <updated>1684411842424</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL‎00003" summary="BugFix">
+      <created>1684419139187</created>
+      <option name="number" value="LOCAL‎00003" />
+      <option name="presentableId" value="LOCAL‎00003" />
+      <updated>1684419139187</updated>
+    </task>
+    <task id="LOCAL‎00004" summary="Added a `copy()` method for `Board` class">
+      <created>1684420425135</created>
+      <option name="number" value="LOCAL‎00004" />
+      <option name="presentableId" value="LOCAL‎00004" />
+      <updated>1684420425135</updated>
+    </task>
+    <task id="LOCAL‎00005" summary="Changed `goalTiles` to be `goalBoard` -- a static feature of `Board` class">
+      <created>1684422103477</created>
+      <option name="number" value="LOCAL‎00005" />
+      <option name="presentableId" value="LOCAL‎00005" />
+      <updated>1684422103477</updated>
+    </task>
+    <task id="LOCAL‎00006" summary="BugFix">
+      <created>1684423091405</created>
+      <option name="number" value="LOCAL‎00006" />
+      <option name="presentableId" value="LOCAL‎00006" />
+      <updated>1684423091405</updated>
+    </task>
+    <task id="LOCAL‎00007" summary="Running very well! Improving the heuristicValue yet needed">
+      <created>1684445019684</created>
+      <option name="number" value="LOCAL‎00007" />
+      <option name="presentableId" value="LOCAL‎00007" />
+      <updated>1684445019684</updated>
+    </task>
+    <task id="LOCAL‎00008" summary="BugFix">
+      <created>1684487038236</created>
+      <option name="number" value="LOCAL‎00008" />
+      <option name="presentableId" value="LOCAL‎00008" />
+      <updated>1684487038236</updated>
+    </task>
+    <task id="LOCAL‎00009" summary="Improved version for Manhattan geometry heuristic function">
+      <created>1684576310882</created>
+      <option name="number" value="LOCAL‎00009" />
+      <option name="presentableId" value="LOCAL‎00009" />
+      <updated>1684576310882</updated>
+    </task>
+    <task id="LOCAL‎00010" summary="Added linear conflicts to the heuristic function">
+      <created>1684579250299</created>
+      <option name="number" value="LOCAL‎00010" />
+      <option name="presentableId" value="LOCAL‎00010" />
+      <updated>1684579250299</updated>
+    </task>
+    <task id="LOCAL‎00011" summary="Big changes - canceled `set` method for `Tile` class; Trimmed `expand` method on `Node` class">
+      <created>1684588498756</created>
+      <option name="number" value="LOCAL‎00011" />
+      <option name="presentableId" value="LOCAL‎00011" />
+      <updated>1684588498757</updated>
+    </task>
+    <task id="LOCAL‎00012" summary="BugFix">
+      <created>1684594145174</created>
+      <option name="number" value="LOCAL‎00012" />
+      <option name="presentableId" value="LOCAL‎00012" />
+      <updated>1684594145174</updated>
+    </task>
+    <task id="LOCAL‎00013" summary="Heuristic">
+      <created>1684594376925</created>
+      <option name="number" value="LOCAL‎00013" />
+      <option name="presentableId" value="LOCAL‎00013" />
+      <updated>1684594376925</updated>
+    </task>
+    <task id="LOCAL‎00014" summary="FINAL VERSION">
+      <created>1684689654147</created>
+      <option name="number" value="LOCAL‎00014" />
+      <option name="presentableId" value="LOCAL‎00014" />
+      <updated>1684689654147</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -93,38 +164,26 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="FILTERS">
-                <map>
-                  <entry key="branch">
-                    <value>
-                      <list>
-                        <option value="HEAD" />
-                      </list>
-                    </value>
-                  </entry>
-                </map>
-              </option>
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Typo in `Tile` class" />
-    <MESSAGE value="shelves" />
-    <option name="LAST_COMMIT_MESSAGE" value="shelves" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Main.java</url>
-          <line>2</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="test" />
+    <MESSAGE value="Restore from `test`" />
+    <MESSAGE value="Added a `copy()` method for `Board` class" />
+    <MESSAGE value="Changed `goalTiles` to be `goalBoard` -- a static feature of `Board` class" />
+    <MESSAGE value="Running very well! Improving the heuristicValue yet needed" />
+    <MESSAGE value="Manhattan geometry heuristic value" />
+    <MESSAGE value="Improved version for Manhattan geometry heristic function" />
+    <MESSAGE value="Improved version for Manhattan geometry heuristic function" />
+    <MESSAGE value="Added linear conflicts to the heuristic function" />
+    <MESSAGE value="Big changes - canceled `set` method for `Tile` class; Trimmed `expand` method on `Node` class" />
+    <MESSAGE value="BugFix" />
+    <MESSAGE value="Heuristic" />
+    <MESSAGE value="FINAL VERSION" />
+    <option name="LAST_COMMIT_MESSAGE" value="FINAL VERSION" />
   </component>
 </project>
